@@ -1,0 +1,46 @@
+#!/bin/bash
+# Purpose - Script to add a user to Linux system including passsword
+# ------------------------------------------------------------------
+
+# Am i Root user?
+if [ $(id -u) -eq 0 ]; then
+
+	read -p "Enter username : " username
+	read -s -p "Enter password : " password
+	read -p "Enter ssh key : " sshkey
+
+	egrep "^$username" /etc/passwd >/dev/null
+	if [ $? -eq 0 ]; then
+		echo "$username exists!"
+		echo "exit"
+		exit 1
+	else
+		
+		pass=$(perl -e 'print crypt($ARGV[0], "password")' $password)
+		useradd -m -p "$pass" "$username"
+		
+		if [ $? -eq 0 ]; then
+			echo "User has been added to system!"
+		else 
+			echo "Failed to add a user!"
+			echo "exit"
+			return 2
+		fi
+
+		usermod -a -G sudo "$username"
+		id "$username"
+
+	
+		mkdir /home/"$username"/.ssh		
+		cat /dev/null > /home/"$username"/.ssh/authorized_keys
+		echo "$sshkey" >> /home/"$username"/.ssh/authorized_keys
+		chown "$username":"$username" /home/"$username"/.ssh
+		chown "$username":"$username" /home/"$username"/.ssh/authorized_keys
+
+	fi
+
+else
+	echo "Only root may add a user to the system."
+	echo "exit"
+	exit 2
+fi

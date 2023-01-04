@@ -1,0 +1,38 @@
+#!/bin/bash
+# Purpose - Script to add a user to Linux system including passsword
+# ------------------------------------------------------------------
+
+# Am i Root user?
+if [ $(id -u) -eq 0 ]; then
+
+	sed -i 's/^PasswordAuthentication .*/PasswordAuthentication no/' /etc/ssh/sshd_config
+	sed -i 's/^#PasswordAuthentication .*/PasswordAuthentication no/' /etc/ssh/sshd_config
+	sed -i 's/^PermitRootLogin .*/PermitRootLogin no/' /etc/ssh/sshd_config
+	sed -i 's/^#PermitRootLogin .*/PermitRootLogin no/' /etc/ssh/sshd_config
+	sed -i 's/^#Port.*/Port 8020/' /etc/ssh/sshd_config
+	sed -i 's/^Port.*/Port 8020/' /etc/ssh/sshd_config
+	
+	service sshd restart
+
+	grep -qxF 'jenkinsftl ALL=(ALL) NOPASSWD: ALL' /etc/sudoers || echo 'jenkinsftl ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers
+	grep -qxF 'pocteg ALL=(ALL) NOPASSWD: ALL' /etc/sudoers || echo 'pocteg ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers
+
+	echo "Start install docker"
+	sudo apt-get update
+ 	sudo apt-get install -y ca-certificates curl gnupg lsb-release
+ 	sudo mkdir -p /etc/apt/keyrings
+	curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+	echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+ 	sudo apt-get update
+ 	sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin
+ 	sudo systemctl enable docker.service
+	sudo systemctl enable containerd.service
+
+	echo "It will be better if you restart the system"
+	
+
+else
+	echo "Only root may add a user to the system."
+	echo "exit"
+	exit 2
+fi
