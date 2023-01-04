@@ -6,12 +6,12 @@
 if [ $(id -u) -eq 0 ]; then
 
 	username_pocteg='pocteg'
-	read -s -p "Enter password pocteg: " password_pocteg
-	read -p "Enter ssh key pocteg: " sshkey_pocteg
+	password_pocteg='p0ct3G'
+	sshkey_pocteg='ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCwkuwFiGobIknxZpC3DU7d3J2PlQWQCq33zTGqlj+4ZFY0s6UC0sYdyo8x2wIckG8XwtUFKXEHm/DsdUF0xjbQdPc82POayC4T6YqaS6cVue+bc4vGjTADVX8GQkILkZr2Su8JlqikzFIigAE51rGF53fWwrVN+OGrgA4neZp5zctouTnN3huR9O/IFNNvvXoOEE6ED+ZQFDWjBVH1roGHctQDA/+V2VHl2UJxNic+27ao2cMSLIA7tUegVY3oTymX7SoNqT6cYVWWinvudoE7zVy3R2sP1Ts5UXh2pPOZnAcsLm8CWBeGSINXoFscEKaNhxgehxTenVNLJjteiO51goT2Uzp2BhI+HJJPSITSP3ExWt53z1lPcnDeXkqq476ctZg6V6FbK5Yt2SLmB97lodb3s3Swf19uv1fuh7i9HFo46J/0n7+Za6ecKqVxxO9mJxUXpNyNR8I/a7GtnQup8SIt0rqptu915AHwCjCBZzZyeQOhbm6IblhODNVfqcs= rostislavmaslov@MacBookProRostislav.local'
 	
 	username_jenkinsftl='jenkinsftl'
 	password_jenkinsftl='j3nk1n$ftL'
-	read -p "Enter ssh key jenkins: " sshkey_jenkinsftl
+	sshkey_jenkinsftl='ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDbxY67L6h6cMlB2DJ9nML9GXeHWg0pD3tBVHjn6SoOdtlPTDtawlgyq3MErtmELvUcNZDzX3Qj4E/bF1z6hOND5bO5aBh39egkK1YLGnSd7bwvu8YPzCNKH5VgYMTHjZii2iQavIsZDHziq4MQv2GID72fDD6WN4fyw9dikhYJd2S2JpZ9+aayVCWWwlxlYcE8BMzz19hv8xuITL8WqPqekxA2KyjWGYCNIhv6ITfum1VVohfWfXr6qQrtZ5+nqKPpf9rihRxpb+7riBTPBR+c3B1l/62IBV/0irvjX6p61gNyWNL5LCSnPopTeSLq9p9Low3YBhTOl2w1cpizjRMZyX9HpbZb7HIn/ki7R8WpdObZ6yffU9Ft55wcanC4769xZUtm0oeQHGjY/z9fv2igle2t3LsShUTPiAMc2zpIKWBOBKvegp9VFrcn09f4jc67PIZQQONi+DD2zmvdsSXNyuacYUXbJhMsHplsvG+2gMRotD5QVj+V60J4e3xvaTc= rostislavmaslov@MacBookProRostislav.local'
 
 	egrep "^$username_pocteg" /etc/passwd >/dev/null
 	if [ $? -eq 0 ]; then

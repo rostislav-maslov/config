@@ -1,0 +1,16 @@
+apt-get install unzip;
+mkdir /opt;
+cd /opt;
+mkdir scripts;
+cd scripts;
+
+rm main.zip;
+rm -r ./config;
+
+wget https://github.com/rostislav-maslov/config/archive/refs/heads/main.zip;
+unzip main.zip;
+mv config-main config;
+rm main.zip;
+
+chmod -R 755 ./config;
+cd ./config;
